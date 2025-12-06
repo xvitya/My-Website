@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Toy Galaxy – All Toys</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>window.dataLayer = window.dataLayer || [];</script>
+  <!-- GTM + shared <style> here -->
+</head>
+<body>
+  <!-- GTM noscript -->
+
+  <div class="page">
+    <header class="header">
+      <div class="logo">🛸 TOY GALAXY</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="plp.html">Shop</a>
+        <a href="cart.html">Cart (<span data-cart-count>0</span>)</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="card" style="margin-bottom:1.5rem;">
+        <span class="pill">PLP · view_item_list · select_item</span>
+        <h1>All Toys</h1>
+        <p>
+          Product listing page with a few dummy toys. Each card can fire
+          <code>select_item</code> and <code>add_to_cart</code>.
+        </p>
+      </div>
+
+      <div class="grid" id="product-list"></div>
+    </main>
+  </div>
+
+  <script src="shop.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      updateCartCountDisplay();
+
+      const listEl = document.getElementById("product-list");
+
+      // Render product cards dynamically
+      toyProducts.forEach(function (p) {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <h2>${p.name}</h2>
+          <p class="price">${formatPrice(p.price)}</p>
+          <p style="font-size:0.85rem;color:#6b7280;">Category: ${p.category}</p>
+          <div class="btn-row">
+            <button class="btn" data-action="view" data-id="${p.id}">
+              👀 View details
+            </button>
+            <button class="btn secondary" data-action="add" data-id="${p.id}">
+              🛒 Add to cart
+            </button>
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      // view_item_list event
+      pushEcomEvent("view_item_list", {
+        item_list_id: "all_toys",
+        item_list_name: "All Toys",
+        currency: "EUR",
+        items: toyProducts.map(function (p, index) {
+          return {
+            item_id: p.id,
+            item_name: p.name,
+            item_category: p.category,
+            index: index + 1,
+            price: p.price
+          };
+        })
+      });
+
+      // Delegate button clicks
+      listEl.addEventListener("click", function (e) {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+
+        const id = btn.getAttribute("data-id");
+        const product = getProductById(id);
+
+        if (btn.dataset.action === "view") {
+          pushEcomEvent("select_item", {
+            item_list_id: "all_toys",
+            item_list_name: "All Toys",
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.name,
+                item_category: product.category,
+                price: product.price
+              }
+            ]
+          });
+
+          window.location.href =
+            "product.html?id=" + encodeURIComponent(product.id);
+        }
+
+        if (btn.dataset.action === "add") {
+          addToCart(product.id, 1);
+
+          pushEcomEvent("add_to_cart", {
+            currency: "EUR",
+            value: product.price,
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.name,
+                item_category: product.category,
+                price: product.price,
+                quantity: 1
+              }
+            ]
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

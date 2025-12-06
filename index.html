@@ -1,166 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- use the shared <head> block here, just changing the title -->
 <head>
   <meta charset="UTF-8" />
-  <title>Analytics Playground – GTM + GA4</title>
+  <title>Toy Galaxy – Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WG7TWZ2S');</script>
-<!-- End Google Tag Manager -->
-
-  <style>
-    :root {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-    }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .wrap {
-      max-width: 720px;
-      width: 100%;
-      padding: 2rem;
-      box-sizing: border-box;
-    }
-    .card {
-      background: #020617;
-      border-radius: 1.5rem;
-      padding: 2rem;
-      box-shadow: 0 24px 60px rgba(15,23,42,0.8);
-      border: 1px solid rgba(148,163,184,0.25);
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 1.9rem;
-      letter-spacing: 0.02em;
-    }
-    p {
-      margin: 0.5rem 0 1.25rem;
-      color: #9ca3af;
-    }
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-    }
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 0.7rem 1.4rem;
-      cursor: pointer;
-      font-size: 0.95rem;
-      background: #2563eb;
-      color: white;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    button.secondary {
-      background: transparent;
-      color: #e5e7eb;
-      border: 1px solid #4b5563;
-    }
-    button:active {
-      transform: translateY(1px);
-    }
-    small {
-      color: #6b7280;
-      display: block;
-      margin-top: 1.5rem;
-      font-size: 0.8rem;
-    }
-    code {
-      background: rgba(15,23,42,0.8);
-      padding: 0.2rem 0.4rem;
-      border-radius: 0.35rem;
-      font-size: 0.8rem;
-      border: 1px solid rgba(148,163,184,0.3);
-    }
-  </style>
+  <script>window.dataLayer = window.dataLayer || [];</script>
+  <!-- GTM script here (same as above) -->
+  <!-- ... copy the GTM + <style> from shared block ... -->
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WG7TWZ2S"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- GTM noscript iframe here -->
 
-  <div class="wrap">
-    <div class="card">
-      <h1>Analytics Playground</h1>
-      <p>
-        Simple page to test <strong>GTM</strong>, <strong>GA4</strong> and your
-        <strong>Google Cloud</strong> pipeline.
-      </p>
-      <p>
-        Every button below pushes a structured event into <code>dataLayer</code>
-        so you can pick it up in GTM and stream it to GA4 / BigQuery.
-      </p>
+  <div class="page">
+    <header class="header">
+      <div class="logo">🛸 TOY GALAXY</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="plp.html">Shop</a>
+        <a href="cart.html">Cart (<span data-cart-count>0</span>)</a>
+      </nav>
+    </header>
 
-      <div class="btn-row">
-        <button id="btn-signup">
-          🚀 Fake sign-up
-        </button>
-        <button id="btn-add-to-cart">
-          🛒 Add to cart
-        </button>
-        <button id="btn-view-offer" class="secondary">
-          👀 View special offer
-        </button>
+    <main>
+      <div class="card">
+        <span class="pill">Sandbox · GTM · GA4 · BigQuery</span>
+        <h1>Analytics Toy Shop</h1>
+        <p>
+          Fake ecommerce flow to test your
+          <strong>GTM</strong>, <strong>GA4</strong> and
+          <strong>server-side</strong> setups without breaking a real site.
+        </p>
+        <p>
+          Walk through a full journey: <strong>Homepage → PLP → PDP → Add to
+          cart → Checkout → Purchase</strong>, all with clean
+          <code>dataLayer</code> events.
+        </p>
+
+        <div class="btn-row">
+          <button class="btn" id="btn-hero-shop">
+            🛒 Shop toys
+          </button>
+          <button class="btn secondary" id="btn-hero-signup">
+            ✉️ Fake newsletter signup
+          </button>
+        </div>
+
+        <small>
+          Tip: In GTM preview, look for events
+          <code>home_cta_click</code> and <code>signup_click</code> from this page.
+        </small>
       </div>
-
-      <small>
-        Tip: In GTM preview mode, watch for events
-        <code>signup_click</code>, <code>add_to_cart_click</code> and
-        <code>offer_view</code> in the timeline.
-      </small>
-    </div>
+    </main>
   </div>
 
+  <script src="shop.js"></script>
   <script>
-    // Ensure dataLayer exists before GTM loads (good habit)
-    window.dataLayer = window.dataLayer || [];
-
-    function pushEvent(eventName, params) {
-      window.dataLayer.push(Object.assign({ event: eventName }, params));
-      console.log("dataLayer.push()", { event: eventName, ...params });
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
-      document.getElementById("btn-signup")?.addEventListener("click", function () {
-        pushEvent("signup_click", {
-          signup_method: "email",
-          plan: "pro_trial",
-          currency: "EUR"
-        });
-      });
+      updateCartCountDisplay();
 
-      document.getElementById("btn-add-to-cart")?.addEventListener("click", function () {
-        pushEvent("add_to_cart_click", {
-          item_id: "SKU-TEST-123",
-          item_name: "Example Product",
-          price: 49.99,
-          currency: "EUR",
-          quantity: 1
+      document
+        .getElementById("btn-hero-shop")
+        ?.addEventListener("click", function () {
+          pushEcomEvent("home_cta_click", {
+            cta_location: "hero",
+            cta_name: "shop_now"
+          });
+          window.location.href = "plp.html";
         });
-      });
 
-      document.getElementById("btn-view-offer")?.addEventListener("click", function () {
-        pushEvent("offer_view", {
-          offer_id: "WINTER_TEST",
-          discount_percent: 20
+      document
+        .getElementById("btn-hero-signup")
+        ?.addEventListener("click", function () {
+          pushEcomEvent("signup_click", {
+            signup_method: "email",
+            signup_placement: "homepage_hero"
+          });
         });
-      });
     });
   </script>
 </body>
