@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Toy Galaxy – Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>window.dataLayer = window.dataLayer || [];</script>
+  <!-- GTM + shared <style> here -->
+</head>
+<body>
+  <!-- GTM noscript -->
+
+  <div class="page" id="checkout-main">
+    <header class="header">
+      <div class="logo">🛸 TOY GALAXY</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="plp.html">Shop</a>
+        <a href="cart.html">Cart (<span data-cart-count>0</span>)</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="card">
+        <span class="pill">Checkout · fake form</span>
+        <h1>Checkout</h1>
+        <p id="order-summary"></p>
+
+        <form id="checkout-form">
+          <label for="name">Full name</label>
+          <input id="name" name="name" placeholder="Buzz Lightyear" required />
+
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            required
+          />
+
+          <label for="address">Address</label>
+          <input
+            id="address"
+            name="address"
+            placeholder="Fake Street 123, Toy City"
+            required
+          />
+
+          <div class="btn-row" style="margin-top:1rem;">
+            <button class="btn" type="submit">
+              ✅ Place test order
+            </button>
+            <a href="cart.html" class="btn secondary" style="text-decoration:none;">
+              ← Back to cart
+            </a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="shop.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      updateCartCountDisplay();
+
+      const cart = getCart();
+      if (!cart.length) {
+        document.getElementById("checkout-main").innerHTML = `
+          <div class="page">
+            <header class="header">
+              <div class="logo">🛸 TOY GALAXY</div>
+              <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="plp.html">Shop</a>
+                <a href="cart.html">Cart (<span data-cart-count>0</span>)</a>
+              </nav>
+            </header>
+            <main>
+              <div class="card">
+                <h1>Checkout</h1>
+                <p>Your cart is empty. <a href="plp.html" class="inline-link">Browse toys</a>.</p>
+              </div>
+            </main>
+          </div>
+        `;
+        return;
+      }
+
+      const total = getCartTotal(cart);
+      document.getElementById("order-summary").textContent =
+        cart.length + " item(s), total " + formatPrice(total);
+
+      document
+        .getElementById("checkout-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const orderId = "TEST-" + Date.now();
+          const order = {
+            orderId: orderId,
+            value: total,
+            currency: "EUR",
+            items: cart
+          };
+
+          saveLastOrder(order);
+
+          window.location.href =
+            "thankyou.html?orderId=" + encodeURIComponent(orderId);
+        });
+    });
+  </script>
+</body>
+</html>
+
