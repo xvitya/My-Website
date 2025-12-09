@@ -58,46 +58,137 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="container">
                     <div class="hero-inner">
 						<div class="hero-copy">
-	                        <h1 class="hero-title mt-0">Google Analytics & GTM Playground: Test, Break, Learn<</h1>
+	                        <h1 class="hero-title mt-0">Google Analytics & GTM Playground: Test, Break, Learn</h1>
 	                        <p class="hero-paragraph">This is my playground for trying out GTM, GA4 and random data-engineering experiments –
   a place to break stuff, tweak events, and see what happens.</p>
 
                         <!-- 🔽🔽🔽 CHANGED BUTTONS ONLY 🔽🔽🔽 -->
 	                        <div class="hero-cta">
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'homepage_view', page_type:'homepage'}); return false;">
-                                    HOMEPAGE
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+									event:'homepage_view',
+									page_type:'homepage'});
+								   return false;">
+								   HOMEPAGE
                                 </a>
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'view_item_list', ecommerce:{item_list_id:'coffee_plp', item_list_name:'Coffee products', items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg'}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+									event:'view_item_list',
+									page_type:'plp',
+									ecommerce:{item_list_id:'coffee_plp',
+									           item_list_name:'Coffee products',
+											   items:[{item_id:'coffee_beans_1kg',
+											   item_name:'Coffee Beans 1kg'}]}});
+											   return false;">
                                     PLP
                                 </a>
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'select_item', ecommerce:{item_list_id:'coffee_plp', item_list_name:'Coffee products', items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg', index:1}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+								   event:'select_item',
+								   page_type:'plp',
+								   ecommerce:{item_list_id:'coffee_plp',
+								   item_list_name:'Coffee products',
+								   items:[{item_id:'coffee_beans_1kg',
+								   item_name:'Coffee Beans 1kg',
+								   index:1}]}});
+								   return false;">
                                     SELECT_ITEM
                                 </a>
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'view_item', ecommerce:{items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg', price:9.99}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+								   event:'view_item',
+								   page_type:'pdp',
+								   ecommerce:{items:[{item_id:'coffee_beans_1kg',
+								                      item_name:'Coffee Beans 1kg',
+													  price:9.99}]}});
+								   return false;">
                                     VIEW_ITEM
                                 </a>
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'add_to_cart', ecommerce:{currency:'EUR', value:9.99, items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg', price:9.99, quantity:1}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+								   event:'add_to_cart',
+								   page_type:'pdp',
+								   ecommerce:{currency:'EUR',
+								              value:9.99,
+											  items:[{item_id:'coffee_beans_1kg',
+											          item_name:'Coffee Beans 1kg',
+													  price:9.99,
+													  quantity:1}]}});
+									return false;">
                                     ADD_TO_CART
                                 </a>
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'begin_checkout', ecommerce:{currency:'EUR', value:9.99, items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg', price:9.99, quantity:1}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+								   event:'begin_checkout',
+								   page_type:'checkout',
+								   ecommerce:{currency:'EUR',
+								              value:9.99,
+											  items:[{item_id:'coffee_beans_1kg',
+											          item_name:'Coffee Beans 1kg',
+													  price:9.99,
+													  quantity:1}]}});
+									return false;">
                                     BEGIN_CHECKOUT
                                 </a>
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'add_shipping_info', ecommerce:{currency:'EUR', value:9.99, shipping_tier:'Standard', items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg', price:9.99, quantity:1}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+								   event:'add_shipping_info',
+								   page_type:'checkout',
+								   ecommerce:{currency:'EUR',
+								              value:9.99,
+											  shipping_tier:'Standard',
+											  items:[{item_id:'coffee_beans_1kg',
+											          item_name:'Coffee Beans 1kg',
+													  price:9.99, quantity:1}]}});
+									return false;">
                                     ADD_SHIPPING_INFO
                                 </a>
                                 <a class="button button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'add_payment_info', ecommerce:{currency:'EUR', value:9.99, payment_type:'Credit Card', items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg', price:9.99, quantity:1}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+								   event:'add_payment_info',
+								   page_type:'checkout',
+								   ecommerce:{currency:'EUR',
+								   value:9.99,
+								   payment_type:'Credit Card',
+								   items:[{item_id:'coffee_beans_1kg',
+								           item_name:'Coffee Beans 1kg',
+										   price:9.99,
+										   quantity:1}]}});
+									return false;">
                                     ADD_PAYMENT_INFO
                                 </a>
                                 <a class="button button-primary button-shadow" href="#"
-                                   onclick="dataLayer.push({event:'purchase', ecommerce:{transaction_id:'TEST_ORDER_1', currency:'EUR', value:9.99, tax:0, shipping:0, items:[{item_id:'coffee_beans_1kg', item_name:'Coffee Beans 1kg', price:9.99, quantity:1}]}}); return false;">
+                                   onclick="
+								   window.dataLayer = window.dataLayer || [];
+								   window.dataLayer.push({
+								   event:'purchase',
+								   page_type:'thank_you',
+								   ecommerce:{transaction_id:'TEST_ORDER_1',
+								              currency:'EUR',
+											  value:9.99,
+											  tax:0,
+											  shipping:0,
+											  items:[{item_id:'coffee_beans_1kg',
+											          item_name:'Coffee Beans 1kg',
+													  price:9.99,
+													  quantity:1}]}});
+									return false;">
                                     PURCHASE
                                 </a>
 	                        </div>
